@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rathin Baidya | Programmer, Web Developer &amp; Founder</title>
+<meta name="description" content="Personal portfolio of Rathin Baidya — programmer, web developer, technology enthusiast, and founder of Paradox Orbit.">
+<meta name="theme-color" content="#0A0E17">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================
+   TOKENS
+   ============================================ */
+:root{
+  --bg: #0A0E17;
+  --bg-soft: #0D1220;
+  --surface: #11172490;
+  --surface-solid: #131a28;
+  --border: rgba(255,255,255,0.09);
+  --border-strong: rgba(255,255,255,0.16);
+  --text: #E9ECF4;
+  --text-dim: #9199AF;
+  --text-faint: #5C6478;
+  --accent: #7C6CF0;       /* orbit violet */
+  --accent-soft: #7C6CF022;
+  --accent-2: #14D9C4;     /* signal teal */
+  --accent-2-soft: #14D9C41c;
+  --warn: #F0B84C;
+
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --max-w: 1180px;
+  --radius-s: 8px;
+  --radius-m: 14px;
+  --radius-l: 22px;
+
+  --ease: cubic-bezier(.16,.84,.44,1);
+}
+
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--font-body);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(ellipse 900px 500px at 82% -8%, #7C6CF01f, transparent 60%),
+    radial-gradient(ellipse 700px 500px at -5% 30%, #14D9C415, transparent 60%);
+  pointer-events:none;
+  z-index:0;
+}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+ul{list-style:none;margin:0;padding:0;}
+h1,h2,h3,h4{font-family:var(--font-display);margin:0;font-weight:600;letter-spacing:-0.01em;}
+p{margin:0;}
+button{font-family:inherit;cursor:pointer;}
+section{position:relative;z-index:1;}
+
+.wrap{max-width:var(--max-w);margin:0 auto;padding:0 28px;}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;}
+}
+
+::selection{background:var(--accent);color:#fff;}
+
+:focus-visible{
+  outline:2px solid var(--accent-2);
+  outline-offset:3px;
+  border-radius:4px;
+}
+
+/* Eyebrow / label */
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  font-family:var(--font-mono);
+  font-size:12.5px;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--accent-2);
+  margin-bottom:16px;
+}
+.eyebrow .orb-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--accent-2);
+  box-shadow:0 0 10px 1px var(--accent-2);
+}
+
+.section-head{
+  max-width:640px;
+  margin-bottom:52px;
+}
+.section-head h2{
+  font-size:clamp(28px,4vw,40px);
+  color:#fff;
+}
+.section-head p{
+  color:var(--text-dim);
+  margin-top:14px;
+  font-size:16px;
+}
+
+/* Orbit arc divider — signature motif used sparingly between major sections */
+.arc-divider{
+  position:relative;
+  height:70px;
+  overflow:hidden;
+}
+.arc-divider svg{
+  position:absolute;
+  top:0;left:50%;
+  transform:translateX(-50%);
+  width:min(900px,140%);
+  height:100%;
+}
+
+/* Buttons */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:13px 26px;
+  border-radius:999px;
+  font-family:var(--font-body);
+  font-weight:600;
+  font-size:14.5px;
+  border:1px solid transparent;
+  transition:transform .35s var(--ease), box-shadow .35s var(--ease), background .35s var(--ease), border-color .35s var(--ease);
+  white-space:nowrap;
+}
+.btn-primary{
+  background:linear-gradient(135deg,var(--accent),#5B4CD6);
+  color:#fff;
+  box-shadow:0 0 0 0 rgba(124,108,240,0.5);
+}
+.btn-primary:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 30px -8px rgba(124,108,240,0.65);
+}
+.btn-ghost{
+  background:transparent;
+  border-color:var(--border-strong);
+  color:var(--text);
+}
+.btn-ghost:hover{
+  border-color:var(--accent-2);
+  color:var(--accent-2);
+  transform:translateY(-2px);
+}
+.btn-sm{padding:9px 18px;font-size:13px;}
+
+/* ============================================
+   NAV
+   ============================================ */
+header.nav{
+  position:fixed;
+  top:0;left:0;right:0;
+  z-index:100;
+  backdrop-filter:blur(14px) saturate(140%);
+  -webkit-backdrop-filter:blur(14px) saturate(140%);
+  background:rgba(10,14,23,0.55);
+  border-bottom:1px solid var(--border);
+  transition:background .3s var(--ease), border-color .3s var(--ease);
+}
+.nav-inner{
+  max-width:var(--max-w);
+  margin:0 auto;
+  padding:16px 28px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.brand{
+  font-family:var(--font-display);
+  font-weight:700;
+  font-size:18px;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  letter-spacing:-0.01em;
+}
+.brand-mark{
+  width:22px;height:22px;
+  position:relative;
+  flex-shrink:0;
+}
+.brand-mark svg{width:100%;height:100%;}
+
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:34px;
+}
+.nav-links a{
+  font-size:14.5px;
+  color:var(--text-dim);
+  font-weight:500;
+  position:relative;
+  padding:4px 0;
+  transition:color .25s var(--ease);
+}
+.nav-links a::after{
+  content:"";
+  position:absolute;
+  left:0;bottom:-2px;
+  width:0%;
+  height:1.5px;
+  background:var(--accent-2);
+  transition:width .3s var(--ease);
+}
+.nav-links a:hover{color:#fff;}
+.nav-links a:hover::after{width:100%;}
+
+.nav-cta{display:flex;align-items:center;gap:14px;}
+
+.hamburger{
+  display:none;
+  flex-direction:column;
+  gap:5px;
+  background:none;
+  border:none;
+  padding:8px;
+  z-index:110;
+}
+.hamburger span{
+  width:22px;height:2px;
+  background:#fff;
+  border-radius:2px;
+  transition:transform .3s var(--ease), opacity .3s var(--ease);
+}
+.hamburger.active span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.active span:nth-child(2){opacity:0;}
+.hamburger.active span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+@media (max-width:860px){
+  .nav-links{
+    position:fixed;
+    top:0;right:0;
+    height:100vh;
+    width:min(78vw,320px);
+    background:#0C1119ee;
+    backdrop-filter:blur(20px);
+    flex-direction:column;
+    justify-content:center;
+    align-items:flex-start;
+    padding:40px 40px;
+    gap:26px;
+    border-left:1px solid var(--border);
+    transform:translateX(100%);
+    transition:transform .4s var(--ease);
+  }
+  .nav-links.active{transform:translateX(0);}
+  .nav-links a{font-size:20px;}
+  .nav-cta .btn-ghost{display:none;}
+  .hamburger{display:flex;}
+}
+
+/* ============================================
+   HERO
+   ============================================ */
+.hero{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  padding:140px 0 90px;
+}
+.hero-inner{
+  display:grid;
+  grid-template-columns:1.1fr 0.9fr;
+  gap:50px;
+  align-items:center;
+}
+.status-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  padding:7px 15px 7px 12px;
+  border:1px solid var(--border-strong);
+  border-radius:999px;
+  font-family:var(--font-mono);
+  font-size:12.5px;
+  color:var(--text-dim);
+  margin-bottom:26px;
+  background:rgba(255,255,255,0.02);
+}
+.status-badge .dot{
+  width:7px;height:7px;border-radius:50%;
+  background:#3ED598;
+  box-shadow:0 0 8px 1px #3ED598;
+  animation:pulse-dot 2s ease-in-out infinite;
+}
+@keyframes pulse-dot{
+  0%,100%{opacity:1;}
+  50%{opacity:0.35;}
+}
+.hero h1{
+  font-size:clamp(38px,6vw,64px);
+  line-height:1.06;
+  color:#fff;
+}
+.hero h1 .accent-text{
+  background:linear-gradient(100deg,var(--accent) 10%,var(--accent-2) 90%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.hero-subtitle{
+  font-family:var(--font-mono);
+  font-size:15px;
+  color:var(--accent-2);
+  margin-top:18px;
+  letter-spacing:0.01em;
+}
+.hero-desc{
+  color:var(--text-dim);
+  font-size:17px;
+  max-width:480px;
+  margin-top:20px;
+}
+.hero-actions{
+  display:flex;
+  gap:16px;
+  margin-top:36px;
+  flex-wrap:wrap;
+}
+
+/* Hero visual: orbit rings + floating code cards */
+.hero-visual{
+  position:relative;
+  height:440px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.orbit-system{
+  position:relative;
+  width:360px;
+  height:360px;
+}
+.orbit-ring{
+  position:absolute;
+  border-radius:50%;
+  border:1px solid var(--border-strong);
+  top:50%;left:50%;
+}
+.orbit-ring.r1{width:360px;height:360px;margin:-180px 0 0 -180px;animation:spin 40s linear infinite;}
+.orbit-ring.r2{width:270px;height:270px;margin:-135px 0 0 -135px;border-style:dashed;border-color:var(--accent-soft);animation:spin 30s linear infinite reverse;}
+.orbit-ring.r3{width:180px;height:180px;margin:-90px 0 0 -90px;animation:spin 22s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+.orbit-core{
+  position:absolute;
+  top:50%;left:50%;
+  width:74px;height:74px;
+  margin:-37px 0 0 -37px;
+  border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#8f80ff,#5B4CD6 60%,#392f9e);
+  box-shadow:0 0 60px 6px #7C6CF055, inset 0 0 20px rgba(255,255,255,0.15);
+  display:flex;align-items:center;justify-content:center;
+}
+.orbit-core::after{
+  content:"</>";
+  font-family:var(--font-mono);
+  font-weight:600;
+  font-size:15px;
+  color:#fff;
+}
+.orbit-node{
+  position:absolute;
+  width:12px;height:12px;
+  border-radius:50%;
+  background:var(--accent-2);
+  box-shadow:0 0 12px 2px var(--accent-2);
+  top:0;left:50%;
+  margin-left:-6px;
+}
+.r1 .orbit-node{top:-2px;}
+.r3 .orbit-node{background:var(--warn);box-shadow:0 0 10px 2px var(--warn);}
+
+.float-card{
+  position:absolute;
+  padding:10px 14px;
+  background:var(--surface-solid);
+  border:1px solid var(--border);
+  border-radius:var(--radius-s);
+  font-family:var(--font-mono);
+  font-size:12px;
+  color:var(--text-dim);
+  box-shadow:0 20px 40px -20px rgba(0,0,0,0.6);
+  animation:float 6s ease-in-out infinite;
+}
+.float-card span{color:var(--accent-2);}
+.float-card.f1{top:6%;left:-4%;animation-delay:0s;}
+.float-card.f2{bottom:10%;left:-2%;animation-delay:1.4s;}
+.float-card.f3{top:14%;right:-8%;animation-delay:2.6s;}
+.float-card.f4{bottom:2%;right:2%;animation-delay:0.8s;}
+@keyframes float{
+  0%,100%{transform:translateY(0px);}
+  50%{transform:translateY(-12px);}
+}
+
+@media (max-width:960px){
+  .hero-inner{grid-template-columns:1fr;}
+  .hero-visual{height:320px;order:-1;}
+  .orbit-system{width:260px;height:260px;}
+  .orbit-ring.r1{width:260px;height:260px;margin:-130px 0 0 -130px;}
+  .orbit-ring.r2{width:195px;height:195px;margin:-97px 0 0 -97px;}
+  .orbit-ring.r3{width:130px;height:130px;margin:-65px 0 0 -65px;}
+  .float-card{display:none;}
+}
+
+/* ============================================
+   REVEAL ANIMATION
+   ============================================ */
+.reveal{
+  opacity:0;
+  transform:translateY(24px);
+  transition:opacity .7s var(--ease), transform .7s var(--ease);
+}
+.reveal.is-visible{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* ============================================
+   ABOUT
+   ============================================ */
+.about{padding:120px 0;}
+.about-grid{
+  display:grid;
+  grid-template-columns:1fr 340px;
+  gap:60px;
+  align-items:start;
+}
+.about-side{
+  display:flex;
+  flex-direction:column;
+  gap:28px;
+}
+.profile-photo{
+  position:relative;
+  width:100%;
+  aspect-ratio:1/1;
+  border-radius:var(--radius-l);
+  padding:4px;
+  background:linear-gradient(160deg,var(--accent),var(--accent-2));
+}
+.profile-photo .photo-inner{
+  width:100%;
+  height:100%;
+  border-radius:calc(var(--radius-l) - 4px);
+  overflow:hidden;
+  background:var(--surface-solid);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.profile-photo img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.profile-photo .photo-placeholder{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:8px;
+  color:var(--text-faint);
+  font-family:var(--font-mono);
+  font-size:12.5px;
+  text-align:center;
+  padding:20px;
+}
+.profile-photo .photo-placeholder svg{width:34px;height:34px;opacity:0.6;}
+.about-text p{
+  color:var(--text-dim);
+  font-size:16px;
+  margin-bottom:18px;
+}
+.about-text p:first-child{
+  color:var(--text);
+  font-size:17.5px;
+}
+.highlight-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius-l);
+  padding:30px;
+  backdrop-filter:blur(10px);
+  position:relative;
+  overflow:hidden;
+}
+.highlight-card::before{
+  content:"";
+  position:absolute;
+  top:-40%;right:-30%;
+  width:200px;height:200px;
+  background:radial-gradient(circle, var(--accent-soft), transparent 70%);
+}
+.highlight-card .tag{
+  font-family:var(--font-mono);
+  font-size:11.5px;
+  color:var(--accent-2);
+  text-transform:uppercase;
+  letter-spacing:0.08em;
+}
+.highlight-card h3{
+  color:#fff;
+  font-size:20px;
+  margin-top:12px;
+}
+.highlight-card p{
+  color:var(--text-dim);
+  font-size:14.5px;
+  margin-top:12px;
+}
+.highlight-card .mini-orbit{
+  width:44px;height:44px;
+  margin-bottom:16px;
+}
+
+@media (max-width:860px){
+  .about-grid{grid-template-columns:1fr;}
+}
+
+/* ============================================
+   SKILLS
+   ============================================ */
+.skills{padding:100px 0;}
+.skill-groups{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:22px;
+}
+.skill-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius-m);
+  padding:26px 24px;
+  transition:transform .35s var(--ease), border-color .35s var(--ease);
+}
+.skill-card:hover{
+  transform:translateY(-6px);
+  border-color:var(--border-strong);
+}
+.skill-card h3{
+  color:#fff;
+  font-size:16.5px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:20px;
+}
+.skill-card h3 .ic{
+  width:9px;height:9px;
+  border-radius:2px;
+  background:var(--accent-2);
+  transform:rotate(45deg);
+  flex-shrink:0;
+}
+.skill-item{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:11px 0;
+  border-top:1px solid var(--border);
+  font-size:14.5px;
+  color:var(--text-dim);
+}
+.skill-item:first-of-type{border-top:none;}
+.skill-item .badge{
+  font-family:var(--font-mono);
+  font-size:10.5px;
+  padding:3px 9px;
+  border-radius:999px;
+  background:var(--accent-2-soft);
+  color:var(--accent-2);
+  letter-spacing:0.02em;
+}
+.skill-item .badge.learning{
+  background:#F0B84C1c;
+  color:var(--warn);
+}
+
+@media (max-width:860px){
+  .skill-groups{grid-template-columns:1fr;}
+}
+
+/* ============================================
+   PROJECTS
+   ============================================ */
+.projects{padding:100px 0;}
+.project-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+}
+.project-card{
+  background:var(--surface-solid);
+  border:1px solid var(--border);
+  border-radius:var(--radius-l);
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  transition:transform .4s var(--ease), border-color .4s var(--ease), box-shadow .4s var(--ease);
+}
+.project-card:hover{
+  transform:translateY(-8px);
+  border-color:var(--border-strong);
+  box-shadow:0 30px 60px -30px rgba(0,0,0,0.7);
+}
+.project-media{
+  height:170px;
+  position:relative;
+  display:flex;align-items:center;justify-content:center;
+  border-bottom:1px solid var(--border);
+  overflow:hidden;
+}
+.project-media.m1{background:linear-gradient(135deg,#1a2436,#0d1220);}
+.project-media.m2{background:linear-gradient(135deg,#1c1830,#0d1220);}
+.project-media.m3{background:linear-gradient(135deg,#0f2b28,#0d1220);}
+.project-media svg{width:64px;height:64px;opacity:0.85;position:relative;z-index:1;}
+.project-media::after{
+  content:"";
+  position:absolute;inset:0;
+  background-image:radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size:16px 16px;
+  opacity:0.5;
+}
+.project-body{
+  padding:26px;
+  display:flex;
+  flex-direction:column;
+  flex:1;
+}
+.project-body h3{
+  color:#fff;
+  font-size:18px;
+  margin-bottom:10px;
+}
+.project-body p{
+  color:var(--text-dim);
+  font-size:14.5px;
+  margin-bottom:16px;
+  flex:1;
+}
+.tech-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  margin-bottom:16px;
+}
+.tech-pill{
+  font-family:var(--font-mono);
+  font-size:11px;
+  padding:4px 10px;
+  border-radius:999px;
+  border:1px solid var(--border-strong);
+  color:var(--text-dim);
+}
+.feature-list{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px 14px;
+  margin-bottom:20px;
+}
+.feature-list li{
+  font-size:12.5px;
+  color:var(--text-faint);
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.feature-list li::before{
+  content:"";
+  width:4px;height:4px;
+  border-radius:50%;
+  background:var(--accent-2);
+}
+.project-actions{
+  display:flex;
+  gap:10px;
+  margin-top:auto;
+}
+
+@media (max-width:960px){
+  .project-grid{grid-template-columns:1fr;}
+}
+
+/* ============================================
+   PARADOX ORBIT (distinct visual section)
+   ============================================ */
+.orbit-section{
+  padding:130px 0;
+  position:relative;
+  background:
+    radial-gradient(ellipse 800px 500px at 50% 0%, #7C6CF01a, transparent 65%),
+    linear-gradient(180deg,#0A0E17 0%, #0B0F1C 50%, #0A0E17 100%);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  overflow:hidden;
+}
+.orbit-section::before{
+  content:"";
+  position:absolute;
+  top:-10%;left:50%;
+  width:1px;height:120%;
+  background:linear-gradient(180deg,transparent, var(--border-strong) 20%, var(--border-strong) 80%, transparent);
+  opacity:0.5;
+}
+.orbit-header{
+  text-align:center;
+  max-width:640px;
+  margin:0 auto 70px;
+}
+.orbit-header .eyebrow{justify-content:center;}
+.orbit-header h2{
+  font-size:clamp(30px,4.5vw,46px);
+  color:#fff;
+}
+.orbit-header .sub{
+  font-family:var(--font-mono);
+  color:var(--accent-2);
+  font-size:14px;
+  margin-top:14px;
+  letter-spacing:0.02em;
+}
+.orbit-header p{
+  color:var(--text-dim);
+  margin-top:16px;
+  font-size:16px;
+}
+
+.orbit-mark-wrap{
+  display:flex;
+  justify-content:center;
+  margin:0 0 70px;
+}
+.orbit-mark{width:180px;height:180px;position:relative;}
+.orbit-mark .ring{position:absolute;top:0;left:0;width:100%;height:100%;}
+
+.orbit-features{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:22px;
+  max-width:960px;
+  margin:0 auto;
+}
+.orbit-feature{
+  background:rgba(255,255,255,0.02);
+  border:1px solid var(--border);
+  border-radius:var(--radius-m);
+  padding:30px 26px;
+  text-align:left;
+  transition:transform .35s var(--ease), border-color .35s var(--ease), background .35s var(--ease);
+}
+.orbit-feature:hover{
+  transform:translateY(-6px);
+  border-color:var(--accent-soft);
+  background:rgba(124,108,240,0.05);
+}
+.orbit-feature .num{
+  font-family:var(--font-mono);
+  font-size:12px;
+  color:var(--accent-2);
+  margin-bottom:14px;
+  display:block;
+}
+.orbit-feature h3{
+  color:#fff;
+  font-size:18px;
+  margin-bottom:10px;
+}
+.orbit-feature p{
+  color:var(--text-dim);
+  font-size:14.5px;
+}
+.orbit-cta{
+  text-align:center;
+  margin-top:56px;
+}
+
+@media (max-width:860px){
+  .orbit-features{grid-template-columns:1fr;}
+}
+
+/* ============================================
+   GOAL / TIMELINE
+   ============================================ */
+.goal{padding:110px 0;}
+.goal-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:60px;
+  align-items:center;
+}
+.goal-text p{
+  color:var(--text-dim);
+  font-size:16px;
+  margin-bottom:16px;
+}
+.timeline{
+  display:flex;
+  flex-direction:column;
+  gap:0;
+}
+.timeline-item{
+  display:flex;
+  gap:18px;
+  position:relative;
+  padding-bottom:34px;
+}
+.timeline-item:last-child{padding-bottom:0;}
+.timeline-item .node{
+  width:14px;height:14px;
+  border-radius:50%;
+  border:2px solid var(--accent-2);
+  background:var(--bg);
+  flex-shrink:0;
+  margin-top:3px;
+  position:relative;
+  z-index:1;
+}
+.timeline-item:first-child .node{
+  background:var(--accent-2);
+  box-shadow:0 0 12px 2px var(--accent-2);
+}
+.timeline-item .line{
+  position:absolute;
+  left:6px;top:18px;
+  width:1px;
+  height:calc(100% - 4px);
+  background:var(--border-strong);
+}
+.timeline-item:last-child .line{display:none;}
+.timeline-item .label{
+  font-family:var(--font-display);
+  font-size:17px;
+  color:#fff;
+  font-weight:600;
+}
+.timeline-item .desc{
+  color:var(--text-faint);
+  font-size:13.5px;
+  margin-top:4px;
+}
+
+@media (max-width:860px){
+  .goal-grid{grid-template-columns:1fr;}
+}
+
+/* ============================================
+   VISION
+   ============================================ */
+.vision{
+  padding:110px 0;
+  text-align:center;
+}
+.vision .wrap{max-width:800px;}
+.vision p.lead{
+  color:var(--text-dim);
+  font-size:17px;
+  margin-bottom:16px;
+}
+.vision-quote{
+  margin-top:44px;
+  padding:40px;
+  border-radius:var(--radius-l);
+  background:var(--surface);
+  border:1px solid var(--border);
+  position:relative;
+}
+.vision-quote::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:var(--radius-l);
+  padding:1px;
+  background:linear-gradient(135deg,var(--accent),transparent 50%,var(--accent-2));
+  -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+  opacity:0.5;
+  pointer-events:none;
+}
+.vision-quote p{
+  font-family:var(--font-display);
+  font-size:clamp(20px,2.6vw,28px);
+  color:#fff;
+  font-weight:600;
+}
+
+/* ============================================
+   CONTACT
+   ============================================ */
+.contact{padding:110px 0;
+text-align: center;}
+.contact .wrap{max-width:640px;}
+.contact .section-head{margin-left:auto;margin-right:auto;}
+.contact-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  justify-items:center;
+}
+.contact-info{max-width:520px;}
+.contact-info p{
+  color:var(--text-dim);
+  font-size:16px;
+  margin-bottom:32px;
+}
+.social-list{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+.social-item{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:14px 16px;
+  border:1px solid var(--border);
+  border-radius:var(--radius-s);
+  transition:border-color .3s var(--ease), transform .3s var(--ease);
+  font-size:14.5px;
+}
+.social-item:hover{
+  border-color:var(--accent-2);
+  transform:translateX(4px);
+}
+.social-item .ico{
+  width:34px;height:34px;
+  border-radius:8px;
+  background:var(--accent-soft);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.social-item .ico svg{width:16px;height:16px;}
+.social-item .lbl{color:var(--text-faint);font-family:var(--font-mono);font-size:11px;display:block;}
+.social-item .val{color:var(--text);}
+
+@media (max-width:860px){
+  .contact-grid{grid-template-columns:1fr;}
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+footer{
+  border-top:1px solid var(--border);
+  padding:50px 0 34px;
+}
+.footer-inner{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  flex-wrap:wrap;
+  gap:30px;
+}
+.footer-brand h3{color:#fff;font-size:19px;}
+.footer-brand .tag{
+  color:var(--text-dim);
+  font-size:13.5px;
+  margin-top:6px;
+  font-family:var(--font-mono);
+}
+.footer-links{
+  display:flex;
+  gap:26px;
+  flex-wrap:wrap;
+}
+.footer-links a{
+  color:var(--text-dim);
+  font-size:14px;
+  transition:color .25s var(--ease);
+}
+.footer-links a:hover{color:var(--accent-2);}
+.footer-bottom{
+  margin-top:36px;
+  padding-top:24px;
+  border-top:1px solid var(--border);
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:10px;
+  font-size:13px;
+  color:var(--text-faint);
+  font-family:var(--font-mono);
+}
+
+/* Utility */
+.center{text-align:center;}
+.mono{font-family:var(--font-mono);}
+
+/* Skip link */
+.skip-link{
+  position:absolute;
+  left:-999px;top:0;
+  background:var(--accent);
+  color:#fff;
+  padding:10px 18px;
+  z-index:200;
+  border-radius:0 0 8px 0;
+}
+.skip-link:focus{left:0;}
+</style>
+</head>
+<body>
+
+<a href="#home" class="skip-link">Skip to content</a>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="nav-inner">
+    <a href="#home" class="brand">
+      <span class="brand-mark">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="20" cy="20" r="19" stroke="url(#g1)" stroke-width="1.4"/>
+          <circle cx="20" cy="20" r="12" stroke="url(#g1)" stroke-width="1" stroke-dasharray="2 3" opacity="0.7"/>
+          <circle cx="20" cy="3.5" r="2.6" fill="#14D9C4"/>
+          <defs>
+            <linearGradient id="g1" x1="0" y1="0" x2="40" y2="40">
+              <stop offset="0" stop-color="#7C6CF0"/>
+              <stop offset="1" stop-color="#14D9C4"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </span>
+      Rathin Baidya
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#home" class="nav-link">Home</a>
+      <a href="#about" class="nav-link">About</a>
+      <a href="#skills" class="nav-link">Skills</a>
+      <a href="#projects" class="nav-link">Projects</a>
+      <a href="#paradox-orbit" class="nav-link">Paradox Orbit</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="#contact" class="btn btn-ghost btn-sm">Contact Me</a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="home">
+  <div class="wrap hero-inner">
+    <div class="hero-content">
+      <div class="status-badge"><span class="dot"></span> Currently Learning &amp; Building</div>
+      <h1>Hi, I'm <span class="accent-text">Rathin Baidya</span></h1>
+      <div class="hero-subtitle">Programmer • Web Developer • Founder of Paradox Orbit</div>
+      <p class="hero-desc">I'm a passionate learner exploring programming, web development, and technology while turning ideas into practical digital projects.</p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn-primary">View My Projects</a>
+        <a href="#contact" class="btn btn-ghost">Contact Me</a>
+      </div>
+    </div>
+    <div class="hero-visual" aria-hidden="true">
+      <div class="orbit-system">
+        <div class="orbit-ring r1"><div class="orbit-node"></div></div>
+        <div class="orbit-ring r2"></div>
+        <div class="orbit-ring r3"><div class="orbit-node"></div></div>
+        <div class="orbit-core"></div>
+      </div>
+      <div class="float-card f1">const <span>dev</span> = "Rathin";</div>
+      <div class="float-card f2">git commit -m <span>"orbit"</span></div>
+      <div class="float-card f3">status: <span>learning</span></div>
+      <div class="float-card f4">&lt;ParadoxOrbit /&gt;</div>
+    </div>
+  </div>
+</section>
+
+<div class="arc-divider" aria-hidden="true">
+  <svg viewBox="0 0 900 70" preserveAspectRatio="none"><path d="M0,0 Q450,70 900,0" stroke="var(--border)" stroke-width="1" fill="none"/></svg>
+</div>
+
+<!-- ============ ABOUT ============ -->
+<section class="about" id="about">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow"><span class="orb-dot"></span>About</div>
+      <h2>About Me</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>Hello! I'm Rathin Baidya, a passionate and curious learner with a strong interest in programming, web development, and technology.</p>
+        <p>I'm currently developing my skills in C programming, HTML, CSS, JavaScript, and modern web technologies. I enjoy learning how software and websites work and turning creative ideas into practical digital projects.</p>
+        <p>Alongside my learning journey, I have also founded a project group called Paradox Orbit, where I work on technology-based ideas and projects with the goal of learning, creating, and building something meaningful.</p>
+        <p>I believe that being a developer is not just about writing code — it is about solving problems, exploring new ideas, working with others, and continuously improving.</p>
+        <p>I'm always excited to learn new technologies, take on new challenges, and transform ideas into real-world projects. My long-term goal is to become a skilled Software and Web Developer and build innovative, user-friendly, and impactful digital solutions.</p>
+      </div>
+      <div class="about-side">
+        <div class="profile-photo reveal">
+          <div class="photo-inner">
+            <!-- Replace the src below with your own photo, e.g. "images/rathin.jpg" -->
+            <img src="r.jpg" alt="Rathin Baidya" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="photo-placeholder" style="display:none;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4.4 3.6-7 8-7s8 2.6 8 7" stroke-linecap="round"/></svg>
+              <span>Add your photo:<br>your-photo.jpg</span>
+            </div>
+          </div>
+        </div>
+        <div class="highlight-card reveal">
+          <svg class="mini-orbit" viewBox="0 0 44 44" fill="none">
+            <circle cx="22" cy="22" r="20" stroke="#7C6CF0" stroke-width="1.2" opacity="0.5"/>
+            <circle cx="22" cy="22" r="13" stroke="#14D9C4" stroke-width="1" stroke-dasharray="2 3"/>
+            <circle cx="22" cy="4" r="2.2" fill="#14D9C4"/>
+          </svg>
+          <div class="tag">Founder</div>
+          <h3>Paradox Orbit</h3>
+          <p>Founded Paradox Orbit to explore technology, collaborate on projects, and turn creative ideas into real-world digital solutions.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SKILLS ============ -->
+<section class="skills" id="skills">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow"><span class="orb-dot"></span>Capabilities</div>
+      <h2>Skills &amp; Technologies</h2>
+      <p>The tools and languages I'm actively building with and learning.</p>
+    </div>
+    <div class="skill-groups">
+      <div class="skill-card reveal">
+        <h3><span class="ic"></span>Programming</h3>
+        <div class="skill-item">C Programming <span class="badge">Core</span></div>
+        <div class="skill-item">Programming Fundamentals <span class="badge">Core</span></div>
+        <div class="skill-item">Problem Solving <span class="badge">Core</span></div>
+        <div class="skill-item">Data Structures <span class="badge learning">Learning</span></div>
+      </div>
+      <div class="skill-card reveal">
+        <h3><span class="ic"></span>Web Development</h3>
+        <div class="skill-item">HTML <span class="badge">Core</span></div>
+        <div class="skill-item">CSS <span class="badge">Core</span></div>
+        <div class="skill-item">JavaScript <span class="badge">Core</span></div>
+        <div class="skill-item">Responsive Web Design <span class="badge">Core</span></div>
+        <div class="skill-item">Frontend Development <span class="badge">Core</span></div>
+      </div>
+      <div class="skill-card reveal">
+        <h3><span class="ic"></span>Tools &amp; Technologies</h3>
+        <div class="skill-item">VS Code <span class="badge">Daily</span></div>
+        <div class="skill-item">Git <span class="badge">Daily</span></div>
+        <div class="skill-item">GitHub <span class="badge">Daily</span></div>
+        <div class="skill-item">Firebase <span class="badge">Core</span></div>
+        <div class="skill-item">WordPress <span class="badge">Core</span></div>
+        <div class="skill-item">Web Deployment <span class="badge">Core</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROJECTS ============ -->
+<section class="projects" id="projects">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow"><span class="orb-dot"></span>Work</div>
+      <h2>Featured Projects</h2>
+      <p>A few things I've built while learning to turn ideas into working software.</p>
+    </div>
+    <div class="project-grid">
+
+      <!-- Project 1 -->
+      <div class="project-card reveal">
+        <div class="project-media m1">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#7C6CF0" stroke-width="1.4"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h10M7 13h6M7 17h10" stroke-linecap="round"/></svg>
+        </div>
+        <div class="project-body">
+          <h3>Smart Banking Management System</h3>
+          <p>A console-based banking management system developed in C to simulate essential banking operations while applying programming fundamentals.</p>
+          <div class="tech-row"><span class="tech-pill">C Programming</span></div>
+          <ul class="feature-list">
+            <li>Account Management</li><li>Deposit</li><li>Withdrawal</li>
+            <li>Balance Checking</li><li>Transaction Handling</li><li>File Handling</li>
+          </ul>
+          <div class="project-actions">
+            <a href="#" class="btn btn-ghost btn-sm">Under Development</a>
+            <a href="#" class="btn btn-ghost btn-sm">GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="project-card reveal">
+        <div class="project-media m2">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#A594FF" stroke-width="1.4"><circle cx="12" cy="8" r="3"/><path d="M5 20c0-3.5 3-6 7-6s7 2.5 7 6" stroke-linecap="round"/></svg>
+        </div>
+        <div class="project-body">
+          <h3>Lifekit Web Project</h3>
+          <p>A web-based community platform designed to allow users to interact through posts, comments, likes, and profiles.</p>
+          <div class="tech-row">
+            <span class="tech-pill">HTML</span><span class="tech-pill">CSS</span><span class="tech-pill">JavaScript</span><span class="tech-pill">Firebase</span>
+          </div>
+          <ul class="feature-list">
+            <li>Registration &amp; Login</li><li>User Profiles</li><li>Posts</li>
+            <li>Comments</li><li>Likes</li><li>Community Feed</li>
+          </ul>
+          <div class="project-actions">
+            <a href="#" class="btn btn-ghost btn-sm">Under Development</a>
+            <a href="#" class="btn btn-ghost btn-sm">GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 3 -->
+      <div class="project-card reveal">
+        <div class="project-media m3">
+          <svg viewBox="0 0 44 44" fill="none">
+            <circle cx="22" cy="22" r="19" stroke="#14D9C4" stroke-width="1.2" opacity="0.6"/>
+            <circle cx="22" cy="22" r="11" stroke="#7C6CF0" stroke-width="1" stroke-dasharray="2 3"/>
+            <circle cx="22" cy="3" r="2.4" fill="#14D9C4"/>
+          </svg>
+        </div>
+        <div class="project-body">
+          <h3>Paradox Orbit</h3>
+          <p>Paradox Orbit is a technology-focused project group founded by Rathin Baidya to explore ideas, develop projects, collaborate, and learn through practical experience.</p>
+          <div class="tech-row">
+            <span class="tech-pill">Technology</span><span class="tech-pill">Programming</span><span class="tech-pill">Web Development</span>
+          </div>
+          <ul class="feature-list">
+            <li>Founder &amp; Project Lead</li>
+          </ul>
+          <div class="project-actions">
+            <a href="https://paradoxorbit.infinityfreeapp.com/" class="btn btn-primary btn-sm">Explore Paradox Orbit</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ PARADOX ORBIT ============ -->
+<section class="orbit-section" id="paradox-orbit">
+  <div class="wrap">
+    <div class="orbit-header reveal">
+      <div class="eyebrow"><span class="orb-dot"></span>Project Group</div>
+      <h2>Paradox Orbit</h2>
+      <div class="sub">Think Beyond. Build Together. Create the Future.</div>
+      <p>Paradox Orbit is a project group founded by Rathin Baidya with the goal of exploring technology, developing creative projects, and learning through practical experience.</p>
+    </div>
+
+    <div class="orbit-mark-wrap reveal" aria-hidden="true">
+      <div class="orbit-mark">
+        <svg class="ring" viewBox="0 0 180 180" fill="none">
+          <circle cx="90" cy="90" r="86" stroke="#7C6CF0" stroke-width="1" opacity="0.45"/>
+          <circle cx="90" cy="90" r="62" stroke="#14D9C4" stroke-width="1" stroke-dasharray="3 5" opacity="0.6"/>
+          <circle cx="90" cy="90" r="34" fill="url(#pg)"/>
+          <circle cx="90" cy="6" r="3.4" fill="#14D9C4"/>
+          <circle cx="176" cy="90" r="2.4" fill="#F0B84C"/>
+          <text x="90" y="97" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="22" font-weight="700" fill="#fff">PO</text>
+          <defs>
+            <radialGradient id="pg" cx="0.35" cy="0.3" r="0.8">
+              <stop offset="0" stop-color="#8f80ff"/>
+              <stop offset="1" stop-color="#392f9e"/>
+            </radialGradient>
+          </defs>
+        </svg>
+      </div>
+    </div>
+
+    <div class="orbit-features">
+      <div class="orbit-feature reveal">
+        <span class="num">01</span>
+        <h3>Innovation</h3>
+        <p>Explore new ideas and technologies.</p>
+      </div>
+      <div class="orbit-feature reveal">
+        <span class="num">02</span>
+        <h3>Collaboration</h3>
+        <p>Work together and learn through projects.</p>
+      </div>
+      <div class="orbit-feature reveal">
+        <span class="num">03</span>
+        <h3>Creation</h3>
+        <p>Turn ideas into real-world digital projects.</p>
+      </div>
+    </div>
+
+    <div class="orbit-cta reveal">
+      <a href="https://paradoxorbit.infinityfreeapp.com/" class="btn btn-primary">Get In Touch About Paradox Orbit</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GOAL ============ -->
+<section class="goal" id="goal">
+  <div class="wrap">
+    <div class="goal-grid">
+      <div class="goal-text reveal">
+        <div class="eyebrow"><span class="orb-dot"></span>Career Objective</div>
+        <h2 style="margin-bottom:20px;">My Goal</h2>
+        <p>My goal is to build a strong career in Software Development and Web Development. I want to continuously improve my programming and problem-solving skills while gaining practical experience by working on real-world projects.</p>
+        <p>In the future, I aim to work with modern technologies and contribute to projects that are innovative, useful, and impactful.</p>
+      </div>
+      <div class="timeline reveal">
+        <div class="timeline-item">
+          <div class="node"></div><div class="line"></div>
+          <div><div class="label">Learn</div><div class="desc">Build a strong foundation in programming and web technologies.</div></div>
+        </div>
+        <div class="timeline-item">
+          <div class="node"></div><div class="line"></div>
+          <div><div class="label">Build</div><div class="desc">Turn concepts into real, working projects.</div></div>
+        </div>
+        <div class="timeline-item">
+          <div class="node"></div><div class="line"></div>
+          <div><div class="label">Collaborate</div><div class="desc">Work with others through Paradox Orbit and beyond.</div></div>
+        </div>
+        <div class="timeline-item">
+          <div class="node"></div><div class="line"></div>
+          <div><div class="label">Improve</div><div class="desc">Refine skills through continuous practice and feedback.</div></div>
+        </div>
+        <div class="timeline-item">
+          <div class="node"></div>
+          <div><div class="label">Innovate</div><div class="desc">Contribute impactful, user-friendly digital solutions.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VISION ============ -->
+<section class="vision" id="vision">
+  <div class="wrap">
+    <div class="eyebrow" style="justify-content:center;"><span class="orb-dot"></span>Vision</div>
+    <h2 class="reveal" style="font-size:clamp(28px,4vw,40px);color:#fff;">My Vision</h2>
+    <p class="lead reveal" style="margin-top:20px;">I believe technology has the power to turn simple ideas into something much bigger. My vision is to keep learning, keep building, and create projects that can solve real problems.</p>
+    <p class="lead reveal">Through Paradox Orbit, I hope to create an environment where ideas become projects, projects become experience, and experience leads to innovation.</p>
+    <div class="vision-quote reveal">
+      <p>"Think Beyond. Build Together. Create the Future."</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow" style="justify-content:center;"><span class="orb-dot"></span>Contact</div>
+      <h2>Let's Connect</h2>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <p>I'm always open to connecting with fellow developers, learners, creators, and people interested in technology and innovative projects.</p>
+        <div class="social-list">
+          <a href="https://github.com/rathin-1848" class="social-item">
+            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#7C6CF0" stroke-width="1.6"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.6 2.8 5.5 3.1 5.5 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></span>
+            <span><span class="lbl">GitHub</span><span class="val">Rathin On GitHub</span></span>
+          </a>
+          <a href="https://in.linkedin.com/in/rathin-baidya-5ba4583b8" class="social-item">
+            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#7C6CF0" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 10v7M7 7v.01M11 17v-4.5a2 2 0 0 1 4 0V17M11 12.5V17" stroke-linecap="round"/></svg></span>
+            <span><span class="lbl">LinkedIn</span><span class="val">Rathin On LinkedIn</span></span>
+          </a>
+          <a href="#" class="social-item">
+            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#7C6CF0" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 6 9 7 9-7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span><span class="lbl">Email</span><span class="val">rathin.baidya2026@gamil.com</span></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <h3>Rathin Baidya</h3>
+        <div class="tag">Programmer • Web Developer • Founder of Paradox Orbit</div>
+      </div>
+      <nav class="footer-links">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Rathin Baidya. All Rights Reserved.</span>
+      <span>Built with passion and code.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Mobile nav toggle
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+hamburger.addEventListener('click', () => {
+  const isActive = navLinks.classList.toggle('active');
+  hamburger.classList.toggle('active');
+  hamburger.setAttribute('aria-expanded', isActive);
+});
+navLinks.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    navLinks.classList.remove('active');
+    hamburger.classList.remove('active');
+    hamburger.setAttribute('aria-expanded', 'false');
+  });
+});
+
+// Scroll reveal
+const revealEls = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('is-visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+revealEls.forEach(el => observer.observe(el));
+
+// Active nav link highlight on scroll
+const sections = document.querySelectorAll('section[id]');
+const navAnchors = document.querySelectorAll('.nav-links a');
+const navObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.getAttribute('id');
+      navAnchors.forEach(a => {
+        a.style.color = a.getAttribute('href') === '#' + id ? '#fff' : '';
+      });
+    }
+  });
+}, { threshold: 0.5 });
+sections.forEach(sec => navObserver.observe(sec));
+</script>
+
+</body>
+</html>
